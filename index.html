@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포카리스웨이트</title>
+</head>
+<style>
+   @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+    *{margin: 0px; padding: 0px;}
+    ul,li,ol{list-style: none;}
+    a{text-decoration: none; color: #333;}
+    body{
+        font-family: 'Jua', sans-serif;
+        font-size: 12px;
+        color: #333;
+    }
+    /* 헤더 */
+    header{position: fixed; top: 0px; left: 0px; z-index: 100;}
+    header > h1{padding: 20px 0px 0px 20px;}
+    header > h1 img{width: 200px;}
+
+    /* 메인 */
+    main{
+        width: 100%;
+        height: 100vh; /* 포지션 속성이 absolute, fixed일 때 먹힌다 or vertical height의 약자인 vh단위 */
+        background: url('./img/bg.jpg') no-repeat;
+        background-size: cover;
+    }
+    section{
+        width: 100%; height: 100%;
+        position: fixed; top: 0px; left: 0px;
+        display: flex; /* article 4개 가로배치 */
+        justify-content: flex-end;
+        z-index: 10;
+    }
+    section > article{
+        width: 18%; height: 100%;
+        position: relative;
+        overflow: hidden;
+        transform: skew(-10deg); /*기울기*/
+        border-left: 1px solid #fff;
+    }
+    video{height: 100%; opacity: 0;} /*영상 숨기기*/
+    h2{
+        position: absolute;
+        top: 3%; left: 50%;
+        color: #fff;
+        font-size: 30px;
+        transform: translateX(-50%) skewX(10deg);
+        font-weight: 500;
+    }
+    .bar{
+        background: rgba(255,255,255,.3);
+        width: 80%; height: 0px;
+        position: absolute;
+        top: 5%; left: 0px;
+        transform: translateY(-50);
+        opacity: 0;
+    }
+    h3{
+        position: absolute; top: 60%; right: -500px;
+        font-size: 28px;
+        font-weight: 500;
+    }
+    .detail{
+        position: absolute; width: 60%;
+        right: 500px; top: 70%;
+        color: #fff;
+        font-size: 18px;
+        line-height: 32px;
+    }
+
+    /* 푸터 */
+    footer{
+        position: absolute;
+        /* float처럼 겹치는 속성, z-index가로크기가 없어짐 */
+        width: 100%; /* absolute, fixed속성 사용시 가로가 없어지므로 다시 크기값을 넣어줌*/
+        bottom: 0px; left: 0px;
+        line-height: 40px;
+        text-align: center;
+    }
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+     $(document).ready(function(){
+
+// 사용자가 마우스로 article 태그를 오버하면
+$('section article').mouseenter(function(){
+
+  // 1. article의 너비가 18%에서 35%로 넓어지면서 영상과 콘텐츠가 보이게 한다.
+  $(this).stop().animate({'width':'35%'},400);
+
+  // 2. .bar의 서식이 opacity값이 0에서 1로, 높이값이 0에서 30px로 변한다.
+  $(this).find('.bar').delay(300).animate({'opacity':'1','height':'35px'},400);
+
+  // 3. h3, .detail의 위치를 -500px에서 0px로 바꿔서 보이게 한다.
+  $(this).find('h3').delay(300).animate({'right':'50px'},400);
+  $(this).find('.detail').delay(300).animate({'right':'20px'},400);
+  $(this).find('video').animate({'opacity':'1'},400);
+
+  // 영상 플레이하기
+  let v = $(this).find('video').get(0); // 영상 객체변수 선언
+  v.play(); // 영상을 재생하라
+});
+
+// 마우스 아웃하면
+$('section article').mouseleave(function(){
+  $(this).stop().animate({'width':'18%'},300);
+  $(this).find('.bar').animate({'opacity':'0','height':'0px'},300);
+  $(this).find('h3').animate({'right':'-500px'},300);
+  $(this).find('.detail').animate({'right':'-500px'},300);
+  $(this).find('video').animate({'opacity':'0'},300);
+
+  let v = $(this).find('video').get(0);
+  v.currentTime=0;
+  v.pause();
+});
+
+});
+</script>
+<body>
+    <!-- 헤더 영역 -->
+    <header>
+        <h1><a href="index.html" title="메인페이지 바로가기">
+            <img src="./img/logo.png" alt="로고"></a></h1>
+    </header>
+
+    <!-- 메인콘텐츠 -->
+    <main>
+        <section>
+            <article>
+                <video autoplay muted loop>
+                    <source src="./movie/ad1.mp4" type="video/mp4">
+                </video>
+                <h2>&#124; MG+</h2>
+                <div class="bar"></div>
+                <h3>몸의 수분량은 어느 정도 일까?</h3>
+                <p class="detail">인간의 몸은 약 60%가 수분입니다. 체중 60kg인 사람의 경우 36리터 정도의 수분을 체내에 가지고 있습니다.</p>
+            </article>
+            <article>
+                <video autoplay muted loop>
+                    <source src="./movie/ad2.mp4" type="video/mp4">
+                </video>
+                <h2>&#124; K+</h2>
+                <div class="bar"></div>
+                <h3>생명의 원천은 바다?</h3>
+                <p class="detail">약 46억년 전 지구 최초의 생명체는 고대의 바다 속에서 탄생되었습니다. 그리고 바다로부터 육지로 올라와 인간으로 진화하였습니다. 우리의 몸 속 수분이 이온을 포함한 바닷물과 닮았다고 하는 것이 바로 그 이유입니다.</p>
+            </article>
+            <article>
+                <video autoplay muted loop>
+                    <source src="./movie/ad3.mp4" type="video/mp4">
+                </video>
+                <h2>&#124; Ca+</h2>
+                <div class="bar"></div>
+                <h3>1일의 수분 배출</h3>
+                <p class="detail">우리의 일상생활을 통해서 소변, 땀, 호흡으로 하루에 2.5리터 정도의 수분을 몸으로부터 읽어버립니다. 많은 땀을 흘릴 때에 갈증이 나는 것은 줄어든 몸 속 수분을 회복하려고 하는 우리 몸의 활동입니다.</p>
+            </article>
+            <article>
+                <video autoplay muted loop>
+                    <source src="./movie/ad4.mp4" type="video/mp4">
+                </video>
+                <h2>&#124; Na+</h2>
+                <div class="bar"></div>
+                <h3>몸 속 수분의 역할</h3>
+                <p class="detail">영양소를 몸의 구석구석 운반, 불필요한 노폐물을 몸 밖으로 배출, 체온 조절</p>
+            </article>
+        </section>
+    </main>
+   
+    <!-- 푸터 영역 -->
+    <footer>Copyright&copy;2022 포카리스웨이트 allrights reserved.</footer>
+</body>
+</html>
