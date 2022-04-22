@@ -11,43 +11,7 @@
     <link rel="stylesheet" href="./style/layout.css" type="text/css">
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script>
-     $(document).ready(function(){
 
-// 사용자가 마우스로 article 태그를 오버하면
-$('section article').mouseenter(function(){
-
-  // 1. article의 너비가 18%에서 35%로 넓어지면서 영상과 콘텐츠가 보이게 한다.
-  $(this).stop().animate({'width':'35%'},400);
-
-  // 2. .bar의 서식이 opacity값이 0에서 1로, 높이값이 0에서 30px로 변한다.
-  $(this).find('.bar').delay(300).animate({'opacity':'1','height':'35px'},400);
-
-  // 3. h3, .detail의 위치를 -500px에서 0px로 바꿔서 보이게 한다.
-  $(this).find('h3').delay(300).animate({'right':'50px'},400);
-  $(this).find('.detail').delay(300).animate({'right':'20px'},400);
-  $(this).find('video').animate({'opacity':'1'},400);
-
-  // 영상 플레이하기
-  let v = $(this).find('video').get(0); // 영상 객체변수 선언
-  v.play(); // 영상을 재생하라
-});
-
-// 마우스 아웃하면
-$('section article').mouseleave(function(){
-  $(this).stop().animate({'width':'18%'},300);
-  $(this).find('.bar').animate({'opacity':'0','height':'0px'},300);
-  $(this).find('h3').animate({'right':'-500px'},300);
-  $(this).find('.detail').animate({'right':'-500px'},300);
-  $(this).find('video').animate({'opacity':'0'},300);
-
-  let v = $(this).find('video').get(0);
-  v.currentTime=0;
-  v.pause();
-});
-
-});
-</script>
 <body>
     <!-- 헤더 영역 -->
     <header>
@@ -99,5 +63,43 @@ $('section article').mouseleave(function(){
    
     <!-- 푸터 영역 -->
     <footer>Copyright&copy;2022 포카리스웨이트 allrights reserved.</footer>
+    
+    <script>
+     $(document).ready(function(){
+
+// 사용자가 마우스로 article 태그를 오버하면
+$('section article').mouseenter(function(){
+
+  // 1. article의 너비가 18%에서 35%로 넓어지면서 영상과 콘텐츠가 보이게 한다.
+  $(this).stop().animate({'width':'35%'},400);
+
+  // 2. .bar의 서식이 opacity값이 0에서 1로, 높이값이 0에서 30px로 변한다.
+  $(this).find('.bar').delay(300).animate({'opacity':'1','height':'35px'},400);
+
+  // 3. h3, .detail의 위치를 -500px에서 0px로 바꿔서 보이게 한다.
+  $(this).find('h3').delay(300).animate({'right':'50px'},400);
+  $(this).find('.detail').delay(300).animate({'right':'20px'},400);
+  $(this).find('video').animate({'opacity':'1'},400);
+
+  // 영상 플레이하기
+  let v = $(this).find('video').get(0); // 영상 객체변수 선언
+  v.play(); // 영상을 재생하라
+});
+
+// 마우스 아웃하면
+$('section article').mouseleave(function(){
+  $(this).stop().animate({'width':'18%'},300);
+  $(this).find('.bar').animate({'opacity':'0','height':'0px'},300);
+  $(this).find('h3').animate({'right':'-500px'},300);
+  $(this).find('.detail').animate({'right':'-500px'},300);
+  $(this).find('video').animate({'opacity':'0'},300);
+
+  let v = $(this).find('video').get(0);
+  v.currentTime=0;
+  v.pause();
+});
+
+});
+</script>
 </body>
 </html>
